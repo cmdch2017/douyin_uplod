@@ -1,5 +1,7 @@
 # douyin_uplod
 易经文字转图片，图片转视频，视频推送抖音
+![image](https://github.com/cmdch2017/douyin_uplod/assets/32605664/edd49ec5-3d4c-4303-82fd-dab67e15a61e)
+
 
 # 原理
 1. 使用apscheduler开启计划任务，每天x点x分运行
