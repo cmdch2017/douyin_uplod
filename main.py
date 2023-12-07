@@ -2,24 +2,23 @@
 import asyncio
 import configparser
 from playwright.async_api import Playwright, async_playwright
-from readYiJing import get_key_value_by_index, increment_and_get_index
+import importlib
 from createPicture import generate_postcard
 
 
 class set_video(object):
-    def __init__(self):
-        key, value = get_key_value_by_index()
+    def __init__(self, reader_module):
+        key, value = reader_module.get_key_value_by_index()
         self.title_text = key
 
 
 class pw(set_video):
-    def __init__(self, read_module):
-        super(pw, self).__init__()
+    def __init__(self, reader_module):
+        super(pw, self).__init__(reader_module)
         self.path = None
         self.cookie_file = None
         self.config_path = 'config.txt'
         self.load_config()
-        self.read_module = read_module
 
     def load_config(self):
         config = configparser.ConfigParser()
@@ -68,7 +67,8 @@ class pw(set_video):
         # 允许他人保存视频
         await page.locator("label").filter(has_text="不允许").click()
         await page.get_by_role("button", name="发布", exact=True).click()
-        increment_and_get_index()
+
+        reader_module.increment_and_get_index()
 
         await context.storage_state(path=self.path + "\\cookie.json")
         await page.wait_for_timeout(20000)
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.read('config.txt')
 
-    reader_module_name = config.get('key', 'readbook', fallback='readYiJing.py')
-    reader_module = __import__(reader_module_name[:-3])
+    reader_module_name = config.get('key', 'readbook', fallback='readYiJing')
+    reader_module = importlib.import_module(reader_module_name[:-3])
 
     job_1(reader_module)
