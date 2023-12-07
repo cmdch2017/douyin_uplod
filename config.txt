@@ -1,0 +1,3 @@
+[key]
+cookie=cookie.json
+path=C:\Demos\douyin_uplod

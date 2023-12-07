@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import asyncio
-
+import configparser
 from playwright.async_api import Playwright, async_playwright
-from 读取易经 import get_key_value_by_index,increment_and_get_index
+from 读取易经 import get_key_value_by_index, increment_and_get_index
 from createPicture import generate_postcard
 
 
@@ -10,17 +10,26 @@ class set_video(object):
     def __init__(self):
         key, value = get_key_value_by_index()
         self.title_text = key
-        self.path = r'C:\Demos\douyin_uplod'  # 资源目录
 
 
 class pw(set_video):
     def __init__(self):
         super(pw, self).__init__()
+        self.path = None
+        self.cookie_file = None
+        self.config_path = 'config.txt'
+        self.load_config()
+
+    def load_config(self):
+        config = configparser.ConfigParser()
+        config.read(self.config_path)
+        self.cookie_file = config.get('key', 'cookie', fallback='cookie.json')
+        self.path = config.get('key', 'path', fallback='./')
 
     async def upload(self, playwright: Playwright) -> None:
         browser = await playwright.chromium.launch(headless=False)
 
-        context = await browser.new_context(storage_state=self.path + "\\cookie.json")
+        context = await browser.new_context(storage_state=self.path + "\\" + self.cookie_file)
 
         page = await context.new_page()
 
