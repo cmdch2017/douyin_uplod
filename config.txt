@@ -1,3 +1,6 @@
 [key]
-cookie=cookie.json
-path=C:\Demos\douyin_uplod
+cookie = cookie.json
+path = C:\Demos\douyin_uplod
+readbook = readYiJing.py
+index = 10
+

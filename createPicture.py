@@ -2,7 +2,7 @@ import os
 import subprocess
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
-from 读取易经 import get_key_value_by_index  # Replace with the correct import statement for your module
+from readYiJing import get_key_value_by_index  # Replace with the correct import statement for your module
 
 
 def text_to_image(text, font_size=36, output_path='output.png', line_width=15):

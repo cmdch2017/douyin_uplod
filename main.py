@@ -2,7 +2,7 @@
 import asyncio
 import configparser
 from playwright.async_api import Playwright, async_playwright
-from 读取易经 import get_key_value_by_index, increment_and_get_index
+from readYiJing import get_key_value_by_index, increment_and_get_index
 from createPicture import generate_postcard
 
 
@@ -13,12 +13,13 @@ class set_video(object):
 
 
 class pw(set_video):
-    def __init__(self):
+    def __init__(self, read_module):
         super(pw, self).__init__()
         self.path = None
         self.cookie_file = None
         self.config_path = 'config.txt'
         self.load_config()
+        self.read_module = read_module
 
     def load_config(self):
         config = configparser.ConfigParser()
@@ -79,14 +80,17 @@ class pw(set_video):
             await self.upload(playwright)
 
 
-def job_1():
+def job_1(reader_module):
     generate_postcard()
-    app = pw()
+    app = pw(reader_module)
     asyncio.run(app.main())
 
 
 if __name__ == '__main__':
-    # scheduler = BlockingScheduler(timezone='Asia/Shanghai')
-    # scheduler.add_job(job_1, 'cron', day='1-31', hour='5', minute='20', misfire_grace_time=180)
-    # scheduler.start()
-    job_1()
+    config = configparser.ConfigParser()
+    config.read('config.txt')
+
+    reader_module_name = config.get('key', 'readbook', fallback='readYiJing.py')
+    reader_module = __import__(reader_module_name[:-3])
+
+    job_1(reader_module)
