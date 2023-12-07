@@ -1,7 +1,7 @@
 # douyin_uplod
-- 从0自动生成发布视频，解决你不知道发什么视频的烦恼。
-- demo的实例是每天5点20分，单号生成并发送舔狗日记，双号生成并发送心灵鸡汤。你们可以根据自己的需求修改下。
-- 示例[抖音号](https://v.douyin.com/rA1gERo/)
+易经文字转图片，图片转视频，视频推送抖音
+![image](https://github.com/cmdch2017/douyin_uplod/assets/32605664/edd49ec5-3d4c-4303-82fd-dab67e15a61e)
+
 
 # 原理
 1. 使用apscheduler开启计划任务，每天x点x分运行
@@ -143,8 +143,3 @@ def __init__(
     ```
 ![示例图片](https://raw.githubusercontent.com/Superheroff/douyin_uplod/main/tag.png)
 
-
-# 结尾
-- qq交流群：916790180
-- 本源码只是出于学习交流的目的，非法使用发送不良视频等与作者无关
-- 这个能够教你写代码 playwright codegen -o script.py
