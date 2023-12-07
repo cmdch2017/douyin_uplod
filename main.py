@@ -4,7 +4,7 @@ import configparser
 from playwright.async_api import Playwright, async_playwright
 import importlib
 from createPicture import generate_postcard
-
+import re
 
 class set_video(object):
     def __init__(self, reader_module):
@@ -61,8 +61,8 @@ class pw(set_video):
         await page.get_by_text("确认", exact=True).click()
 
         # 添加到
-        # await page.get_by_text("请选择合集").click()
-        # await page.get_by_role("option", name="易经").click()
+        await page.locator("div").filter(has_text=re.compile(r"^请选择合集$")).nth(2).click()
+        await page.locator("div").filter(has_text=re.compile(r"^易经$")).click()
 
         # 允许他人保存视频
         await page.locator("label").filter(has_text="不允许").click()

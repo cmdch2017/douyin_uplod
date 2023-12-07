@@ -1,30 +1,20 @@
 # douyin_uplod
+项目比起原项目借用了其playwright保存cookie文件
 易经文字转图片，图片转视频，视频推送抖音
 ![image](https://github.com/cmdch2017/douyin_uplod/assets/32605664/edd49ec5-3d4c-4303-82fd-dab67e15a61e)
-
+不会写代码用
+playwright codegen -o script.py 
 
 # 原理
-1. 使用apscheduler开启计划任务，每天x点x分运行
-2. 通过自定义的文字以及背景音乐合成音频【使用了微软语音合成】
-3. 通过音频和临时视频片段合成视频【使用了ffmpeg】
-4. 通过playwright发布合成的视频
+1、通过playwright发布合成的视频
 
 # 技术栈
 - python
 - playwright
 - ffmpeg
-- apscheduler
 
-# 前期准备
-- 微软[azure注册](https://azure.microsoft.com/zh-cn/products/cognitive-services/text-to-speech/)
-- 没有海外卡的同学，淘宝搜索`微软azure注册`
-- 准备至少2个临时视频片段，最好可以循环重复的静音视频
-- 安装python
-- 安装playwright、ffmpeg、apscheduler，执行以下命令
-- 下载[ffmpeg](http://ffmpeg.org/download.html)
 
 ```python
-pip install apscheduler
 pip install ffmpy
 pip install playwright
 python -m playwright install
