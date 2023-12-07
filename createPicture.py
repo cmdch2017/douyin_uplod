@@ -2,8 +2,14 @@ import os
 import subprocess
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
-from readYiJing import get_key_value_by_index  # Replace with the correct import statement for your module
+import importlib
+import configparser
 
+# Import the necessary function from the specified module
+config = configparser.ConfigParser()
+config.read('config.txt')
+reader_module_name = config.get('key', 'readbook', fallback='readYiJing')
+reader_module = importlib.import_module(reader_module_name[:-3])
 
 def text_to_image(text, font_size=36, output_path='output.png', line_width=15):
     # 创建一个明信片背景图片
@@ -55,7 +61,7 @@ def combine_image_audio(image_path, audio_path, output_path='output.mp4', durati
 
 
 def generate_postcard():
-    key, value = get_key_value_by_index()
+    key, value = reader_module.get_key_value_by_index()
     text_to_image(value, output_path='output.png')
     combine_image_audio('output.png', 'temp.wav', output_path='output_video.mp4', duration=10)
 
